@@ -20,6 +20,12 @@ jobs:
         with:
           lfs: true
 
+      # Unity Activation
+      - name: Activate Unity license
+        uses: webbertakken/unity-activate@v1.2
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+
       # Build
       - name: Build project
         uses: webbertakken/unity-builder@v0.10
