@@ -33,14 +33,14 @@ public class LevelGenerator : MonoBehaviour
         lastEndPosition = transform.Find("EndPosition").position;
     }
 
-    private Transform GetNextBlock()
-    {
-        return blocks[Random.Range(0, blocks.Count)];
-    }
-
     private Transform SpawnBlock(Transform block, Vector3 spawnPosition)
     {
         Transform transform = Instantiate(block, spawnPosition, Quaternion.identity);
         return transform;
+    }
+
+    private Transform GetNextBlock()
+    {
+        return blocks[Random.Range(0, blocks.Count)];
     }
 }

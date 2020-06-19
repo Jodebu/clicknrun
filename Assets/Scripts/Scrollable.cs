@@ -5,6 +5,7 @@ public class Scrollable : MonoBehaviour
 {
     private void Update()
     {
-        transform.position = new Vector3(transform.position.x, transform.position.y + Input.mouseScrollDelta.y * 0.5f, transform.position.z);
+        if (GameController.Instance.GameStatus == GameController.Status.STARTED)
+            transform.position = new Vector3(transform.position.x, transform.position.y + Input.mouseScrollDelta.y * GameController.Instance.scrollSpeed, transform.position.z);
     }
 }
