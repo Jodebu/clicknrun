@@ -19,7 +19,6 @@ jobs:
           - StandaloneWindows64
           - StandaloneOSX
           - StandaloneLinux64
-          - WebGL
 
     steps:
       # Set up deploy channel
@@ -33,8 +32,6 @@ jobs:
               echo "::set-output name=CHANNEL::mac"
             elif [ "${{ matrix.targetPlatform }}" = "StandaloneLinux64" ]; then
               echo "::set-output name=CHANNEL::linux"
-            elif [ "${{ matrix.targetPlatform }}" = "WebGL" ]; then
-              echo "::set-output name=CHANNEL::web"
             fi
 
       # Checkout
@@ -57,7 +54,7 @@ jobs:
         uses: webbertakken/unity-builder@v0.10
         with:
           projectPath: ${{ matrix.projectPath }}
-          unityVersion: 2019.3.14f1
+          unityVersion: 2019.3.15f1
           targetPlatform: ${{ matrix.targetPlatform }}
 
       # Publish to itch.io
