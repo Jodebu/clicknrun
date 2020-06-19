@@ -8,10 +8,18 @@ env:
 
 jobs:
   buildAndTestForSomePlatforms:
-    name: Build and deploy to itch.io
+    name: Build for ${{ matrix.targetPlatform }} and deploy to itch.io
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
+      matrix:
+        projectPath:
+          - project
+        targetPlatform:
+          - StandaloneOSX
+          - StandaloneWindows64
+          - StandaloneLinux64
+          - WebGL
 
     steps:
       # Checkout
@@ -20,26 +28,30 @@ jobs:
         with:
           lfs: true
 
-      # Unity Activation
-      - name: Activate Unity license
-        uses: webbertakken/unity-activate@v1.2
-        env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+      # Cache
+      - uses: actions/cache@v1.1.0
+        with:
+          path: ${{ matrix.projectPath }}/Library
+          key: Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}
+          restore-keys: |
+            Library-${{ matrix.projectPath }}-
+            Library-
 
       # Build
       - name: Build project
         uses: webbertakken/unity-builder@v0.10
         with:
+          projectPath: ${{ matrix.projectPath }}
           unityVersion: 2019.3.14f1
-          targetPlatform: WebGL
+          targetPlatform: ${{ matrix.targetPlatform }}
 
       # Publish to itch.io
       - name: Deploy to itch.io
         uses: josephbmanley/butler-publish-itchio-action@master
         env:
           BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
-          CHANNEL: web
+          CHANNEL: ${{ matrix.targetPlatform }}
           ITCH_GAME: clicknrun
-          ITCH_USER: yayo-acosta
+          ITCH_USER: yayoacosta
           PACKAGE: build
           VERSION: 0.0.4

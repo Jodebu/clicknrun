@@ -5,8 +5,8 @@ public class KillZone : MonoBehaviour
     [SerializeField] private Position position = Position.Left;
    
     private enum Position { Left, Bottom, Right }
-    private new BoxCollider2D collider;
-    private new Camera camera = null;
+    private BoxCollider2D collider;
+    private Camera camera = null;
 
     private void Awake()
     {

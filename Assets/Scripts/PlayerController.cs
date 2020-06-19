@@ -4,7 +4,7 @@ public class PlayerController : MonoBehaviour
 {
     private bool grounded = true;
     private bool onScrollable = false;
-    [SerializeField] private new Camera camera = null;
+    [SerializeField] private Camera camera = null;
 
     private void Awake()
     {
