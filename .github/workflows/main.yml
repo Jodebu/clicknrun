@@ -69,5 +69,5 @@ jobs:
           CHANNEL: ${{ steps.vars.outputs.CHANNEL }}
           ITCH_GAME: clicknrun
           ITCH_USER: yayoacosta
-          PACKAGE: build/${{ matrix.targetPlatform }}
-          VERSION: 0.0.4
+          PACKAGE: build
+          VERSION: 0.0.5

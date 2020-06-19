@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 public class ScoreController : MonoBehaviour
@@ -10,7 +8,7 @@ public class ScoreController : MonoBehaviour
     private TextMeshProUGUI score;
     private float offset;
 
-    private void Awake()
+    private void Start()
     {
         score = GetComponent<TextMeshProUGUI>();
         offset = player.position.x;
