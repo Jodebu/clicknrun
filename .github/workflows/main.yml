@@ -21,6 +21,11 @@ jobs:
           - StandaloneLinux64
 
     steps:
+      - name: Activate Unity
+        uses: webbertakken/unity-activate@v1.2
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+
       # Set up deploy channel
       - name: Set up deploy channel
         id: vars
