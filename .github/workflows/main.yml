@@ -1,7 +1,7 @@
 name: Deployment
 
-on:
-  push: { branches: [master] }
+# on:
+#   push: { branches: [master] }
 
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -61,6 +61,7 @@ jobs:
           projectPath: ${{ matrix.projectPath }}
           unityVersion: 2019.3.15f1
           targetPlatform: ${{ matrix.targetPlatform }}
+          buildName: Click'n Run
 
       # Publish to itch.io
       - name: Deploy to itch.io
