@@ -4,7 +4,9 @@ public class PlayerController : MonoBehaviour
 {
     private bool grounded = true;
     private bool onScrollable = false;
+
     [SerializeField] private Camera camera = null;
+    [SerializeField]  private Animator animator;
 
     private void Awake()
     {
@@ -15,7 +17,10 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         if (GameController.Instance.GameStatus == GameController.Status.PRE_START && Input.GetMouseButtonDown(0))
+        {
             GameController.Instance.GameStatus = GameController.Status.STARTED;
+            StartAnimations();
+        }
 
         if (GameController.Instance.GameStatus == GameController.Status.STARTED)
         {
@@ -38,9 +43,32 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void StartAnimations()
+    {
+        animator.SetBool("gameStarted", true);
+    }
+
     private bool OnTheGround() => grounded || onScrollable;
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Ground"))
+    //        grounded = true;
+
+    //    if (collision.gameObject.CompareTag("Scroll"))
+    //        onScrollable = true;
+    //}
+
+    //private void OnCollisionExit2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Ground"))
+    //        grounded = false;
+
+    //    if (collision.gameObject.CompareTag("Scroll"))
+    //        onScrollable = false;
+    //}
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
             grounded = true;
@@ -49,7 +77,7 @@ public class PlayerController : MonoBehaviour
             onScrollable = true;
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
             grounded = false;
