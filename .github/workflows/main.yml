@@ -16,12 +16,27 @@ jobs:
         projectPath:
           - project
         targetPlatform:
-          - StandaloneOSX
           - StandaloneWindows64
+          - StandaloneOSX
           - StandaloneLinux64
           - WebGL
 
     steps:
+      # Set up deploy channel
+      - name: Set up deploy channel
+        id: vars
+        shell: bash
+        run: |
+            if [ "${{ matrix.targetPlatform }}" = "StandaloneWindows64" ]; then
+              echo "::set-output name=CHANNEL::win"
+            elif [ "${{ matrix.targetPlatform }}" = "StandaloneOSX" ]; then
+              echo "::set-output name=CHANNEL::mac"
+            elif [ "${{ matrix.targetPlatform }}" = "StandaloneLinux64" ]; then
+              echo "::set-output name=CHANNEL::linux"
+            elif [ "${{ matrix.targetPlatform }}" = "WebGL" ]; then
+              echo "::set-output name=CHANNEL::web"
+            fi
+
       # Checkout
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -50,8 +65,8 @@ jobs:
         uses: josephbmanley/butler-publish-itchio-action@master
         env:
           BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
-          CHANNEL: ${{ matrix.targetPlatform }}
+          CHANNEL: ${{ steps.vars.outputs.CHANNEL }}
           ITCH_GAME: clicknrun
           ITCH_USER: yayoacosta
-          PACKAGE: build
+          PACKAGE: build/${{ matrix.targetPlatform }}
           VERSION: 0.0.4
