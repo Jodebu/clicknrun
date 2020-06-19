@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5014843192466201181}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EndPosition
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -40,7 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8845409917366753872}
   - component: {fileID: 1898964183219988967}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: tile_archHalf.png (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2554241382343720824}
   - component: {fileID: 1513841587950409965}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: tile_archColumn.png
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -205,7 +205,7 @@ GameObject:
   - component: {fileID: 5528361728658963835}
   - component: {fileID: 92705578440519805}
   - component: {fileID: 3366783753482104086}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: StepsUp
   m_TagString: Ground
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
@@ -333,7 +333,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7826657860170940287}
   - component: {fileID: 5988185560707346011}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: tile_archHalf.png (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -414,7 +414,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2131703676887075393}
   - component: {fileID: 5292396134022053507}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: tile_archColumn.png (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -496,7 +496,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2833556348656784971}
   - component: {fileID: 6786480706261763640}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: tile_archColumn.png (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -578,7 +578,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3343363571184022712}
   - component: {fileID: 3140929768990276331}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: tile_archHalf.png (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -659,7 +659,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3590926961375981575}
   - component: {fileID: 2800066426363306766}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: tile_archColumn.png (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -741,7 +741,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4634884097114566723}
   - component: {fileID: 4421392434899299883}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: tile_archHalf.png (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -822,7 +822,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4589035503238991921}
   - component: {fileID: 5417300618959495639}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: tile_archColumn.png (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -904,7 +904,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8636699264273467261}
   - component: {fileID: 4754796758881685775}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: tile_archColumn.png (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -986,7 +986,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5543284653872803720}
   - component: {fileID: 5343303777802165461}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: tile_archColumn.png (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1068,7 +1068,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5197717445716664759}
   - component: {fileID: 5223682661958873206}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: tile_archColumn.png (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1150,7 +1150,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6077072858576610381}
   - component: {fileID: 7792434890150653163}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: tile_archColumn.png (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1232,7 +1232,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2870140059880216303}
   - component: {fileID: 912529919428238530}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: tile_archHalf.png (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1313,7 +1313,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4358511529741712579}
   - component: {fileID: 8859660597484790434}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: tile_archColumn.png (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1395,7 +1395,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6945074787450477265}
   - component: {fileID: 636840132639032930}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: tile_archColumn.png (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1477,7 +1477,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7530042487898856265}
   - component: {fileID: 4677650194434407741}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: tile_archHalf.png (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1558,7 +1558,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2547159848672250558}
   - component: {fileID: 2237531555841052578}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: tile_archColumn.png (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
