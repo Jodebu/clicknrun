@@ -1,4 +1,4 @@
-name: Dev build
+name: Deployment
 
 on:
   push: { branches: [master] }
@@ -21,14 +21,15 @@ jobs:
           lfs: true
 
       # Build
-      - name: Build projects
+      - name: Build project
         uses: webbertakken/unity-builder@v0.10
         with:
           unityVersion: 2019.3.14f1
           targetPlatform: WebGL
 
       # Publish to itch.io
-      - uses: josephbmanley/butler-publish-itchio-action@master
+      - name: Deploy to itch.io
+        uses: josephbmanley/butler-publish-itchio-action@master
         env:
           BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
           CHANNEL: web
