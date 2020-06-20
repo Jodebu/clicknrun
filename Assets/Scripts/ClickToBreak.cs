@@ -1,14 +1,14 @@
 ﻿using TMPro;
 using UnityEngine;
 
-public class Clickable : MonoBehaviour
+public class ClickToBreak : MonoBehaviour
 {
     [SerializeField] private TextMeshPro countdown = null;
     private int clicksLeft;
 
     private void Awake()
     {
-        clicksLeft = Random.Range(1, 10);
+        clicksLeft = Random.Range(1, 4);
         countdown.text = clicksLeft.ToString();
     }
 

@@ -64,7 +64,7 @@ public class LevelGenerator : MonoBehaviour
         }
 
         return new Vector3(
-            lastEndPosition.x + UnityEngine.Random.Range(0, 2),
+            lastEndPosition.x + UnityEngine.Random.Range(0, 3),
             lastEndPosition.y + nextHeigthIncrement,
             lastEndPosition.z);
     }
