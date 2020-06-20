@@ -23,6 +23,5 @@ public class GameController : MonoBehaviour
     internal void SpeedUp()
     {
         speed *= 1.2f;
-        Debug.Log(speed);
     }
 }
