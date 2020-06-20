@@ -16,7 +16,8 @@ public class ScoreController : MonoBehaviour
 
     private void Update()
     {
-        score.text = GetDistanceTraveled().ToString();
+        if (GameController.Instance.GameStatus == GameController.Status.STARTED)
+            score.text = GetDistanceTraveled().ToString();
     }
 
     private int GetDistanceTraveled() => (int)(player.position.x - offset);
