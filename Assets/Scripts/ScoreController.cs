@@ -7,6 +7,7 @@ public class ScoreController : MonoBehaviour
 
     private TextMeshProUGUI score;
     private float offset;
+    private int nextSpeedUp = 100;
 
     private void Start()
     {
@@ -17,7 +18,15 @@ public class ScoreController : MonoBehaviour
     private void Update()
     {
         if (GameController.Instance.GameStatus == GameController.Status.STARTED)
-            score.text = GetDistanceTraveled().ToString();
+        {
+            int distance = GetDistanceTraveled();
+            score.text = distance.ToString();
+            if (distance > nextSpeedUp)
+            {
+                nextSpeedUp *= 2;
+                GameController.Instance.SpeedUp();
+            }
+        }
     }
 
     private int GetDistanceTraveled() => (int)(player.position.x - offset);
