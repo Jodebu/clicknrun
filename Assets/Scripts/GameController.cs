@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
@@ -23,6 +24,7 @@ public class GameController : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        scrollSpeed = PlayerPrefs.GetInt("InvertScroll", 1) * Math.Abs(scrollSpeed);
     }
 
     private void Update()
@@ -52,6 +54,13 @@ public class GameController : MonoBehaviour
         optionsPanel.LeanMoveY(targetHeight, 0.3f).setEaseInOutExpo();
 
         return newStatus;
+    }
+
+    public void OnInvertScrollToggle(bool invert)
+    {
+        int sign = invert ? -1 : 1;
+        PlayerPrefs.SetInt("InvertScroll", sign);
+        scrollSpeed = sign * Math.Abs(scrollSpeed);
     }
 
     public void OnResumeClicked()

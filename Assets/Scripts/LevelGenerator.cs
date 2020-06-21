@@ -59,16 +59,13 @@ public class LevelGenerator : MonoBehaviour
 
         Vector3 GetPosition()
         {
-            int nextHeigthIncrement = nextBlock.gameObject.GetComponent<Scrollable>() != null
-                ? UnityEngine.Random.Range(1, maxHeigth)
-                : UnityEngine.Random.Range(currentHeigth <= 1 ? 0 : -1, currentHeigth >= maxHeigth ? 1 : 2);
+            int nextHeigthIncrement = 
+                nextBlock.gameObject.GetComponent<Scrollable>() != null
+                || blocks[lastSpawnedBlock].gameObject.GetComponent<Scrollable>() != null
+                    ? UnityEngine.Random.Range(1 - currentHeigth, maxHeigth - currentHeigth)
+                    : UnityEngine.Random.Range(currentHeigth <= 1 ? 0 : -1, currentHeigth >= maxHeigth ? 1 : 2);
 
-
-            switch (nextHeigthIncrement)
-            {
-                case -1: currentHeigth--; break;
-                case 1: currentHeigth++; break;
-            }
+            currentHeigth += nextHeigthIncrement;
 
             return new Vector3(
                 lastEndPosition.x + UnityEngine.Random.Range(0, 3),
@@ -76,30 +73,4 @@ public class LevelGenerator : MonoBehaviour
                 lastEndPosition.z);
         }
     }
-
-    //private Transform GetNextBlock()
-    //{
-    //    int newBlock;
-
-    //    do newBlock = UnityEngine.Random.Range(0, blocks.Count);
-    //    while (newBlock == lastSpawnedBlock);
-
-    //    lastSpawnedBlock = newBlock;
-    //    return blocks[newBlock];
-    //}
-
-    //private Vector3 GetNextPosition()
-    //{
-    //    int nextHeigthIncrement = UnityEngine.Random.Range(currentHeigth <= 1 ? 0 : -1, currentHeigth >= maxHeigth ? 1 : 2);
-    //    switch (nextHeigthIncrement)
-    //    {
-    //        case -1: currentHeigth--; break;
-    //        case 1: currentHeigth++; break;
-    //    }
-
-    //    return new Vector3(
-    //        lastEndPosition.x + UnityEngine.Random.Range(0, 3),
-    //        lastEndPosition.y + nextHeigthIncrement,
-    //        lastEndPosition.z);
-    //}
 }

@@ -70,4 +70,4 @@ jobs:
           ITCH_GAME: clicknrun
           ITCH_USER: yayoacosta
           PACKAGE: build
-          VERSION: 0.0.5
+          VERSION: 0.1.0
