@@ -33,39 +33,73 @@ public class LevelGenerator : MonoBehaviour
 
     private void SpawnBlock()
     {
-        Transform transform = SpawnBlock(GetNextBlock(), GetNextPosition());
+        Transform transform = GetNextBlock();
         lastEndPosition = transform.Find("EndPosition").position;
-    }
-
-    private Transform SpawnBlock(Transform block, Vector3 spawnPosition)
-    {
-        Transform transform = Instantiate(block, spawnPosition, Quaternion.identity);
-        return transform;
     }
 
     private Transform GetNextBlock()
     {
-        int newBlock;
+        Transform nextBlock = GetBlock();
+        Vector3 spawnPosition = GetPosition();
+        
 
-        do newBlock = UnityEngine.Random.Range(0, blocks.Count);
-        while (newBlock == lastSpawnedBlock);
+        Transform transform = Instantiate(nextBlock, spawnPosition, Quaternion.identity);
+        return transform;
 
-        lastSpawnedBlock = newBlock;
-        return blocks[newBlock];
-    }
-
-    private Vector3 GetNextPosition()
-    {
-        int nextHeigthIncrement = UnityEngine.Random.Range(currentHeigth <= 1 ? 0 : -1, currentHeigth >= maxHeigth ? 1 : 2);
-        switch (nextHeigthIncrement)
+        Transform GetBlock()
         {
-            case -1: currentHeigth--; break;
-            case 1: currentHeigth++; break;
+            int newBlock;
+
+            do newBlock = UnityEngine.Random.Range(0, blocks.Count);
+            while (newBlock == lastSpawnedBlock);
+
+            lastSpawnedBlock = newBlock;
+            return blocks[newBlock];
         }
 
-        return new Vector3(
-            lastEndPosition.x + UnityEngine.Random.Range(0, 3),
-            lastEndPosition.y + nextHeigthIncrement,
-            lastEndPosition.z);
+        Vector3 GetPosition()
+        {
+            int nextHeigthIncrement = nextBlock.gameObject.GetComponent<Scrollable>() != null
+                ? UnityEngine.Random.Range(1, maxHeigth)
+                : UnityEngine.Random.Range(currentHeigth <= 1 ? 0 : -1, currentHeigth >= maxHeigth ? 1 : 2);
+
+
+            switch (nextHeigthIncrement)
+            {
+                case -1: currentHeigth--; break;
+                case 1: currentHeigth++; break;
+            }
+
+            return new Vector3(
+                lastEndPosition.x + UnityEngine.Random.Range(0, 3),
+                lastEndPosition.y + nextHeigthIncrement,
+                lastEndPosition.z);
+        }
     }
+
+    //private Transform GetNextBlock()
+    //{
+    //    int newBlock;
+
+    //    do newBlock = UnityEngine.Random.Range(0, blocks.Count);
+    //    while (newBlock == lastSpawnedBlock);
+
+    //    lastSpawnedBlock = newBlock;
+    //    return blocks[newBlock];
+    //}
+
+    //private Vector3 GetNextPosition()
+    //{
+    //    int nextHeigthIncrement = UnityEngine.Random.Range(currentHeigth <= 1 ? 0 : -1, currentHeigth >= maxHeigth ? 1 : 2);
+    //    switch (nextHeigthIncrement)
+    //    {
+    //        case -1: currentHeigth--; break;
+    //        case 1: currentHeigth++; break;
+    //    }
+
+    //    return new Vector3(
+    //        lastEndPosition.x + UnityEngine.Random.Range(0, 3),
+    //        lastEndPosition.y + nextHeigthIncrement,
+    //        lastEndPosition.z);
+    //}
 }

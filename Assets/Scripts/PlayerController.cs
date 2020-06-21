@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask scrollLayerMask = 0;
 
     private CapsuleCollider2D capCollider;
+    private bool offGround = false;
 
     private void Awake()
     {
@@ -32,9 +33,6 @@ public class PlayerController : MonoBehaviour
         {
             transform.Translate(GameController.Instance.speed * Time.deltaTime, 0, 0);
 
-            if (IsGrounded())
-                if (!particles.isEmitting) PlayParticles(true);
-
             if (Input.GetMouseButtonDown(1) && IsGrounded())
             {
                 GetComponent<Rigidbody2D>().AddForce(transform.up * 800);
@@ -46,6 +44,15 @@ public class PlayerController : MonoBehaviour
                 Vector3 vel = GetComponent<Rigidbody2D>().velocity;
                 vel.y -= 50 * Time.deltaTime;
                 GetComponent<Rigidbody2D>().velocity = vel;
+                offGround = true;
+            }
+            else
+            {
+                if (offGround)
+                {
+                    offGround = false;
+                    PlayParticles(true);
+                }
             }
 
             if (IsOnScrollable())
@@ -73,8 +80,8 @@ public class PlayerController : MonoBehaviour
 
     private void PlayParticles(bool enable)
     {
-        if (enable) particles.Play();
-        else particles.Stop();
+        if (enable && !particles.isPlaying) particles.Play();
+        else if (particles.isPlaying) particles.Stop();
     }
 
     private bool IsGrounded()
