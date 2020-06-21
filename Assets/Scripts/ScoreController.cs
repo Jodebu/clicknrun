@@ -4,6 +4,7 @@ using UnityEngine;
 public class ScoreController : MonoBehaviour
 {
     [SerializeField] private Transform player = null;
+    [SerializeField] private Animator speedUp = null;
 
     private TextMeshProUGUI score;
     private float offset;
@@ -25,6 +26,7 @@ public class ScoreController : MonoBehaviour
             {
                 nextSpeedUp *= 2;
                 GameController.Instance.SpeedUp();
+                speedUp.Play("speed_up", -1, 0f);
             }
         }
     }

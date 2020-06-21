@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Camera mainCamera = null;
     [SerializeField] private Animator animator = null;
+    [SerializeField] private ParticleSystem particles = null;
     [SerializeField] private LayerMask groundLayerMask = 0;
     [SerializeField] private LayerMask scrollLayerMask = 0;
 
@@ -23,15 +24,22 @@ public class PlayerController : MonoBehaviour
         if (GameController.Instance.GameStatus == GameController.Status.PRE_START && Input.GetMouseButtonDown(0))
         {
             GameController.Instance.GameStatus = GameController.Status.STARTED;
-            StartAnimations();
+            PlayAnimations(true);
+            PlayParticles(true);
         }
 
         if (GameController.Instance.GameStatus == GameController.Status.STARTED)
         {
             transform.Translate(GameController.Instance.speed * Time.deltaTime, 0, 0);
 
+            if (IsGrounded())
+                if (!particles.isEmitting) PlayParticles(true);
+
             if (Input.GetMouseButtonDown(1) && IsGrounded())
+            {
                 GetComponent<Rigidbody2D>().AddForce(transform.up * 800);
+                PlayParticles(false);
+            }
 
             if (!IsGrounded())
             {
@@ -48,7 +56,8 @@ public class PlayerController : MonoBehaviour
 
         if (GameController.Instance.GameStatus == GameController.Status.FINISH)
         {
-            animator.SetBool("gameStarted", false);
+            PlayAnimations(false);
+            PlayParticles(false);
         }
 
         if (Input.GetMouseButtonDown(2))
@@ -57,9 +66,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void StartAnimations()
+    private void PlayAnimations(bool enabled)
     {
-        animator.SetBool("gameStarted", true);
+        animator.SetBool("gameStarted", enabled);
+    }
+
+    private void PlayParticles(bool enable)
+    {
+        if (enable) particles.Play();
+        else particles.Stop();
     }
 
     private bool IsGrounded()
