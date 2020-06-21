@@ -1,6 +1,4 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
@@ -65,11 +63,6 @@ public class PlayerController : MonoBehaviour
         {
             PlayAnimations(false);
             PlayParticles(false);
-        }
-
-        if (Input.GetMouseButtonDown(2))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 

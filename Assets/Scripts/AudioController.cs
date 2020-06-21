@@ -9,9 +9,14 @@ public class AudioController : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
-        music = GetComponent<AudioSource>();
-        StartMusic();
+        DontDestroyOnLoad(gameObject);
+        if (Instance == null)
+        {
+            Instance = this;
+            music = GetComponent<AudioSource>();
+            StartMusic();
+        }
+        else Destroy(gameObject);
     }
 
     public void StartMusic() => music.Play();

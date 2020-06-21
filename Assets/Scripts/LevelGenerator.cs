@@ -18,7 +18,7 @@ public class LevelGenerator : MonoBehaviour
 
     private void Awake()
     {
-        maxHeigth = (int)Math.Floor(mainCamera.orthographicSize * 2 - 1);
+        maxHeigth = (int)Math.Floor(mainCamera.orthographicSize * 2 - 2);
         lastEndPosition = startBlock.Find("EndPosition").position;
         SpawnBlock();
     }
