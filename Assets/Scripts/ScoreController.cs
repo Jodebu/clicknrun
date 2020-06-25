@@ -18,17 +18,14 @@ public class ScoreController : MonoBehaviour
 
     private void Update()
     {
-        if (GameController.Instance.GameStatus == GameController.Status.Started)
-        {
-            int distance = GetDistanceTraveled();
-            _score.text = distance.ToString();
-            if (distance > _nextSpeedUp)
-            {
-                _nextSpeedUp *= 2;
-                GameController.Instance.SpeedUp();
-                speedUp.Play("speed_up", -1, 0f);
-            }
-        }
+        if (GameController.Instance.GameStatus != GameController.Status.Started) return;
+        int distance = GetDistanceTraveled();
+        _score.text = distance.ToString();
+        
+        if (distance <= _nextSpeedUp) return;
+        _nextSpeedUp *= 2;
+        GameController.Instance.SpeedUp();
+        speedUp.Play("speed_up", -1, 0f);
     }
 
     private int GetDistanceTraveled() => (int)(player.position.x - _offset);

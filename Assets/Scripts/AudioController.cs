@@ -18,8 +18,6 @@ public class AudioController : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    public void StartMusic() => _music.Play();
-
     public void PlayMusic(bool enable)
     {
         PlayerPrefs.SetInt("MusicOn", Convert.ToInt32(enable));

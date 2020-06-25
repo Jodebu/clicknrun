@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
 {
-    private const float SPAWN_DISTANCE = 25f;
+    private const float SpawnDistance = 25f;
 
     [SerializeField] private Camera mainCamera = null;
     [SerializeField] private GameObject player = null;
@@ -25,14 +25,14 @@ public class LevelGenerator : MonoBehaviour
 
     private void Update()
     {
-        if (player != null && Vector3.Distance(player.transform.position, _lastEndPosition) < SPAWN_DISTANCE)
+        if (player != null && Vector3.Distance(player.transform.position, _lastEndPosition) < SpawnDistance)
             SpawnBlock();
     }
 
     private void SpawnBlock()
     {
-        Transform transform = GetNextBlock();
-        _lastEndPosition = transform.Find("EndPosition").position;
+        Transform nextBlock = GetNextBlock();
+        _lastEndPosition = nextBlock.Find("EndPosition").position;
     }
 
     private Transform GetNextBlock()
@@ -41,8 +41,8 @@ public class LevelGenerator : MonoBehaviour
         Vector3 spawnPosition = GetPosition();
         
 
-        Transform transform = Instantiate(nextBlock, spawnPosition, Quaternion.identity);
-        return transform;
+        Transform block = Instantiate(nextBlock, spawnPosition, Quaternion.identity);
+        return block;
 
         Transform GetBlock()
         {
@@ -57,17 +57,17 @@ public class LevelGenerator : MonoBehaviour
 
         Vector3 GetPosition()
         {
-            int nextHeigthIncrement = 
+            int nextHeightIncrement = 
                 nextBlock.gameObject.GetComponent<Scrollable>() != null
                 || blocks[_lastSpawnedBlock].gameObject.GetComponent<Scrollable>() != null
                     ? UnityEngine.Random.Range(1 - _currentHeight, _maxHeight - _currentHeight)
                     : UnityEngine.Random.Range(_currentHeight <= 1 ? 0 : -1, _currentHeight >= _maxHeight ? 1 : 2);
 
-            _currentHeight += nextHeigthIncrement;
+            _currentHeight += nextHeightIncrement;
 
             return new Vector3(
                 _lastEndPosition.x + UnityEngine.Random.Range(0, 3),
-                _lastEndPosition.y + nextHeigthIncrement,
+                _lastEndPosition.y + nextHeightIncrement,
                 _lastEndPosition.z);
         }
     }

@@ -16,7 +16,10 @@ public class PlayerController : MonoBehaviour
     {
         _capCollider = GetComponent<CapsuleCollider2D>();
         Vector2 initialPos = mainCamera.ScreenToWorldPoint(Vector3.zero);
-        transform.position = new Vector3(initialPos.x + 2, transform.position.y, transform.position.z);
+        
+        var position = transform.position;
+        position = new Vector3(initialPos.x + 2, position.y, position.z);
+        transform.position = position;
     }
 
     private void Update()
@@ -56,7 +59,9 @@ public class PlayerController : MonoBehaviour
 
             if (IsOnScrollable())
             {
-                transform.position = new Vector3(transform.position.x, transform.position.y + Input.mouseScrollDelta.y * GameController.Instance.ScrollSpeed, transform.position.z);
+                var position = transform.position;
+                position = new Vector3(position.x, position.y + Input.mouseScrollDelta.y * GameController.Instance.ScrollSpeed, position.z);
+                transform.position = position;
             }
         }
 
@@ -67,9 +72,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void PlayAnimations(bool enabled)
+    private void PlayAnimations(bool active)
     {
-        animator.SetBool(GameStarted, enabled);
+        animator.SetBool(GameStarted, active);
     }
 
     private void PlayParticles(bool enable)

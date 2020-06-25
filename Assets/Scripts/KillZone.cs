@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class KillZone : MonoBehaviour
 {
@@ -27,16 +28,16 @@ public class KillZone : MonoBehaviour
                 _boxCollider.offset = new Vector2(_boxCollider.offset.x, _mainCamera.ScreenToWorldPoint(Vector3.zero).y - 0.5f);
                 _boxCollider.size = new Vector2(20, _boxCollider.size.y);
                 break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            Instantiate(dieParticles, collision.gameObject.transform.position, Quaternion.identity);
-            Destroy(collision.gameObject);
-            GameController.Instance.GameStatus = GameController.Status.Finish;
-        }
+        if (!collision.gameObject.CompareTag("Player")) return;
+        Instantiate(dieParticles, collision.gameObject.transform.position, Quaternion.identity);
+        Destroy(collision.gameObject);
+        GameController.Instance.GameStatus = GameController.Status.Finish;
     }
 }
