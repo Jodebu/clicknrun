@@ -11,30 +11,28 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private Transform startBlock = null;
     [SerializeField] private List<Transform> blocks = new List<Transform>();
 
-    private Vector3 lastEndPosition = Vector3.zero;
-    private int lastSpawnedBlock = -2;
-    private int maxHeigth;
-    private int currentHeigth = 1;
+    private Vector3 _lastEndPosition = Vector3.zero;
+    private int _lastSpawnedBlock = -2;
+    private int _maxHeight;
+    private int _currentHeight = 1;
 
     private void Awake()
     {
-        maxHeigth = (int)Math.Floor(mainCamera.orthographicSize * 2 - 2);
-        lastEndPosition = startBlock.Find("EndPosition").position;
+        _maxHeight = (int)Math.Floor(mainCamera.orthographicSize * 2 - 2);
+        _lastEndPosition = startBlock.Find("EndPosition").position;
         SpawnBlock();
     }
 
     private void Update()
     {
-        if (Vector3.Distance(player.transform.position, lastEndPosition) < SPAWN_DISTANCE)
-        {
+        if (player != null && Vector3.Distance(player.transform.position, _lastEndPosition) < SPAWN_DISTANCE)
             SpawnBlock();
-        }
     }
 
     private void SpawnBlock()
     {
         Transform transform = GetNextBlock();
-        lastEndPosition = transform.Find("EndPosition").position;
+        _lastEndPosition = transform.Find("EndPosition").position;
     }
 
     private Transform GetNextBlock()
@@ -51,9 +49,9 @@ public class LevelGenerator : MonoBehaviour
             int newBlock;
 
             do newBlock = UnityEngine.Random.Range(0, blocks.Count);
-            while (newBlock == lastSpawnedBlock);
+            while (newBlock == _lastSpawnedBlock);
 
-            lastSpawnedBlock = newBlock;
+            _lastSpawnedBlock = newBlock;
             return blocks[newBlock];
         }
 
@@ -61,16 +59,16 @@ public class LevelGenerator : MonoBehaviour
         {
             int nextHeigthIncrement = 
                 nextBlock.gameObject.GetComponent<Scrollable>() != null
-                || blocks[lastSpawnedBlock].gameObject.GetComponent<Scrollable>() != null
-                    ? UnityEngine.Random.Range(1 - currentHeigth, maxHeigth - currentHeigth)
-                    : UnityEngine.Random.Range(currentHeigth <= 1 ? 0 : -1, currentHeigth >= maxHeigth ? 1 : 2);
+                || blocks[_lastSpawnedBlock].gameObject.GetComponent<Scrollable>() != null
+                    ? UnityEngine.Random.Range(1 - _currentHeight, _maxHeight - _currentHeight)
+                    : UnityEngine.Random.Range(_currentHeight <= 1 ? 0 : -1, _currentHeight >= _maxHeight ? 1 : 2);
 
-            currentHeigth += nextHeigthIncrement;
+            _currentHeight += nextHeigthIncrement;
 
             return new Vector3(
-                lastEndPosition.x + UnityEngine.Random.Range(0, 3),
-                lastEndPosition.y + nextHeigthIncrement,
-                lastEndPosition.z);
+                _lastEndPosition.x + UnityEngine.Random.Range(0, 3),
+                _lastEndPosition.y + nextHeigthIncrement,
+                _lastEndPosition.z);
         }
     }
 }

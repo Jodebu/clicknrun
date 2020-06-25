@@ -56,7 +56,7 @@ jobs:
       - name: Build project
         uses: webbertakken/unity-builder@v0.10
         with:
-          projectPath: ${{ matrix.projectPath }}
+          #projectPath: ${{ matrix.projectPath }}
           unityVersion: 2019.3.15f1
           targetPlatform: ${{ matrix.targetPlatform }}
           buildName: Click'n Run

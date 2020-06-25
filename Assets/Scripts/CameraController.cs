@@ -2,9 +2,9 @@
 
 public class CameraController : MonoBehaviour
 {
-    void Update()
+    private void Update()
     {
-        if (GameController.Instance.GameStatus == GameController.Status.STARTED)
-            transform.Translate(GameController.Instance.speed * Time.deltaTime, 0, 0);
+        if (GameController.Instance.GameStatus == GameController.Status.Started)
+            transform.Translate(GameController.Instance.Speed * Time.deltaTime, 0, 0);
     }
 }

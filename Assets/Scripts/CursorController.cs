@@ -6,6 +6,6 @@ public class CursorController : MonoBehaviour
 
     private void Awake()
     {
-        Cursor.SetCursor(cursor, new Vector2(.2f, .3f), CursorMode.Auto);
+        Cursor.SetCursor(cursor, new Vector2(0.2f, 0.3f), CursorMode.Auto);
     }
 }

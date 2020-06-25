@@ -5,26 +5,26 @@ public class ClickToAppear : MonoBehaviour
 {
     [SerializeField] private Material normalMaterial = null;
     [SerializeField] private Material transparentMaterial = null;
-    private LayerMask normalLayerMask = 8;
-    private LayerMask transparentLayerMask = 0;
+    private readonly LayerMask _normalLayerMask = 8;
+    private readonly LayerMask _transparentLayerMask = 0;
 
-    private List<BoxCollider2D> colliders;
-    private List<SpriteRenderer> renderers;
+    private List<BoxCollider2D> _colliders;
+    private List<SpriteRenderer> _renderers;
     private bool isClickable = true;
 
     private void Awake()
     {
         if (isClickable)
         {
-            colliders = new List<BoxCollider2D>(GetComponents<BoxCollider2D>());
-            renderers = new List<SpriteRenderer>(GetComponentsInChildren<SpriteRenderer>());
+            _colliders = new List<BoxCollider2D>(GetComponents<BoxCollider2D>());
+            _renderers = new List<SpriteRenderer>(GetComponentsInChildren<SpriteRenderer>());
 
-            colliders.ForEach(coll =>
+            _colliders.ForEach(coll =>
             {
                 if (!coll.isTrigger) coll.enabled = false;
             });
-            renderers.ForEach(renderer => renderer.material = transparentMaterial);
-            gameObject.layer = transparentLayerMask;
+            _renderers.ForEach(renderer => renderer.material = transparentMaterial);
+            gameObject.layer = _transparentLayerMask;
         }
     }
 
@@ -32,9 +32,9 @@ public class ClickToAppear : MonoBehaviour
     {
         if (isClickable)
         {
-            colliders.ForEach(collider => collider.enabled = true);
-            renderers.ForEach(renderer => renderer.material = normalMaterial);
-            gameObject.layer = normalLayerMask;
+            _colliders.ForEach(collider => collider.enabled = true);
+            _renderers.ForEach(renderer => renderer.material = normalMaterial);
+            gameObject.layer = _normalLayerMask;
         }
     }
 }

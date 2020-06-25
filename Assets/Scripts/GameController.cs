@@ -5,26 +5,26 @@ using UnityEngine.SceneManagement;
 public class GameController : MonoBehaviour
 {
     public static GameController Instance { get; private set; }
-    public Status GameStatus { get; set; } = Status.PRE_START;
-    public float speed { get; private set; } = 5f;
-    public float scrollSpeed { get; set; } = 0.5f;
+    public Status GameStatus { get; set; } = Status.PreStart;
+    public float Speed { get; private set; } = 5f;
+    public float ScrollSpeed { get; set; } = 0.5f;
 
     [SerializeField] private RectTransform optionsPanel = null;
-    private bool isOptionsOpen = false;
-    private Status previousStatus = Status.PRE_START;
+    private bool _isOptionsOpen = false;
+    private Status _previousStatus = Status.PreStart;
 
     public enum Status
     {
-        PRE_START,
-        STARTED,
-        PAUSED,
-        FINISH
+        PreStart,
+        Started,
+        Paused,
+        Finish
     }
 
     private void Awake()
     {
         Instance = this;
-        scrollSpeed = PlayerPrefs.GetInt("InvertScroll", 1) * Math.Abs(scrollSpeed);
+        ScrollSpeed = PlayerPrefs.GetInt("InvertScroll", 1) * Math.Abs(ScrollSpeed);
     }
 
     private void Update()
@@ -38,19 +38,19 @@ public class GameController : MonoBehaviour
         Status newStatus;
         float targetHeight;
 
-        if (isOptionsOpen)
+        if (_isOptionsOpen)
         {
-            newStatus = previousStatus;
+            newStatus = _previousStatus;
             targetHeight = optionsPanel.position.y + Screen.height * 3;
         }
         else
         {
-            previousStatus = GameStatus;
-            newStatus = Status.PAUSED;
+            _previousStatus = GameStatus;
+            newStatus = Status.Paused;
             targetHeight = 0f;
         }
 
-        isOptionsOpen = !isOptionsOpen;
+        _isOptionsOpen = !_isOptionsOpen;
         optionsPanel.LeanMoveY(targetHeight, 0.3f).setEaseInOutExpo();
 
         return newStatus;
@@ -60,7 +60,7 @@ public class GameController : MonoBehaviour
     {
         int sign = invert ? -1 : 1;
         PlayerPrefs.SetInt("InvertScroll", sign);
-        scrollSpeed = sign * Math.Abs(scrollSpeed);
+        ScrollSpeed = sign * Math.Abs(ScrollSpeed);
     }
 
     public void OnResumeClicked()
@@ -80,6 +80,6 @@ public class GameController : MonoBehaviour
 
     internal void SpeedUp()
     {
-        speed *= 1.2f;
+        Speed *= 1.2f;
     }
 }

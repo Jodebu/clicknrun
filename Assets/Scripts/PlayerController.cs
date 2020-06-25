@@ -8,28 +8,29 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask groundLayerMask = 0;
     [SerializeField] private LayerMask scrollLayerMask = 0;
 
-    private CapsuleCollider2D capCollider;
-    private bool offGround = false;
+    private CapsuleCollider2D _capCollider;
+    private bool _offGround = false;
+    private static readonly int GameStarted = Animator.StringToHash("gameStarted");
 
     private void Awake()
     {
-        capCollider = GetComponent<CapsuleCollider2D>();
+        _capCollider = GetComponent<CapsuleCollider2D>();
         Vector2 initialPos = mainCamera.ScreenToWorldPoint(Vector3.zero);
         transform.position = new Vector3(initialPos.x + 2, transform.position.y, transform.position.z);
     }
 
     private void Update()
     {
-        if (GameController.Instance.GameStatus == GameController.Status.PRE_START && Input.GetMouseButtonDown(0))
+        if (GameController.Instance.GameStatus == GameController.Status.PreStart && Input.GetMouseButtonDown(0))
         {
-            GameController.Instance.GameStatus = GameController.Status.STARTED;
+            GameController.Instance.GameStatus = GameController.Status.Started;
             PlayAnimations(true);
             PlayParticles(true);
         }
 
-        if (GameController.Instance.GameStatus == GameController.Status.STARTED)
+        if (GameController.Instance.GameStatus == GameController.Status.Started)
         {
-            transform.Translate(GameController.Instance.speed * Time.deltaTime, 0, 0);
+            transform.Translate(GameController.Instance.Speed * Time.deltaTime, 0, 0);
 
             if (Input.GetMouseButtonDown(1) && IsGrounded())
             {
@@ -42,24 +43,24 @@ public class PlayerController : MonoBehaviour
                 Vector3 vel = GetComponent<Rigidbody2D>().velocity;
                 vel.y -= 50 * Time.deltaTime;
                 GetComponent<Rigidbody2D>().velocity = vel;
-                offGround = true;
+                _offGround = true;
             }
             else
             {
-                if (offGround)
+                if (_offGround)
                 {
-                    offGround = false;
+                    _offGround = false;
                     PlayParticles(true);
                 }
             }
 
             if (IsOnScrollable())
             {
-                transform.position = new Vector3(transform.position.x, transform.position.y + Input.mouseScrollDelta.y * GameController.Instance.scrollSpeed, transform.position.z);
+                transform.position = new Vector3(transform.position.x, transform.position.y + Input.mouseScrollDelta.y * GameController.Instance.ScrollSpeed, transform.position.z);
             }
         }
 
-        if (GameController.Instance.GameStatus == GameController.Status.FINISH)
+        if (GameController.Instance.GameStatus == GameController.Status.Finish)
         {
             PlayAnimations(false);
             PlayParticles(false);
@@ -68,7 +69,7 @@ public class PlayerController : MonoBehaviour
 
     private void PlayAnimations(bool enabled)
     {
-        animator.SetBool("gameStarted", enabled);
+        animator.SetBool(GameStarted, enabled);
     }
 
     private void PlayParticles(bool enable)
@@ -79,13 +80,15 @@ public class PlayerController : MonoBehaviour
 
     private bool IsGrounded()
     {
-        RaycastHit2D hit = Physics2D.CapsuleCast(capCollider.bounds.center, capCollider.bounds.size, CapsuleDirection2D.Vertical, 0, Vector2.down, capCollider.bounds.extents.y + .01f, groundLayerMask);
+        var bounds = _capCollider.bounds;
+        RaycastHit2D hit = Physics2D.CapsuleCast(bounds.center, bounds.size, CapsuleDirection2D.Vertical, 0, Vector2.down, bounds.extents.y + .01f, groundLayerMask);
         return hit.collider != null || IsOnScrollable();
     }
 
     private bool IsOnScrollable()
     {
-        RaycastHit2D hit = Physics2D.CapsuleCast(capCollider.bounds.center, capCollider.bounds.size, CapsuleDirection2D.Vertical, 0, Vector2.down, capCollider.bounds.extents.y + .01f, scrollLayerMask);
+        var bounds = _capCollider.bounds;
+        RaycastHit2D hit = Physics2D.CapsuleCast(bounds.center, bounds.size, CapsuleDirection2D.Vertical, 0, Vector2.down, bounds.extents.y + .01f, scrollLayerMask);
         return hit.collider != null;
     }
 }

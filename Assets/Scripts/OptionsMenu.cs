@@ -5,12 +5,14 @@ using UnityEngine.UI;
 public class OptionsMenu : MonoBehaviour
 {
     [SerializeField] private Toggle invertScrollToggle = null;
-    private RectTransform menuPanel;
+    [SerializeField] private Toggle playMusicToggle = null;
+    private RectTransform _menuPanel;
 
     private void Awake()
     {
-        menuPanel = GetComponent<RectTransform>();
-        menuPanel.anchoredPosition = new Vector2(menuPanel.anchoredPosition.x, Screen.height * 3);
+        _menuPanel = GetComponent<RectTransform>();
+        _menuPanel.anchoredPosition = new Vector2(_menuPanel.anchoredPosition.x, Screen.height * 3);
         invertScrollToggle.isOn = PlayerPrefs.GetInt("InvertScroll", 1) < 0; ;
+        playMusicToggle.isOn = PlayerPrefs.GetInt("MusicOn", 1) > 0; ;
     }
 }
